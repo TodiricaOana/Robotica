@@ -1,1 +1,3 @@
 # Robotica
+
+Repository for the Introduction to Robotics course.
