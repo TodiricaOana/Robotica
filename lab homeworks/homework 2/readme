@@ -1,0 +1,4 @@
+Your project must do the following:
+a. Detect knocks (you decide on the sensitivity of detection, but must be usable)
+b. 5 seconds after the knock, start a buzzer tone / sound / melody of your choice
+c. Stop the melody using a pushbutton
