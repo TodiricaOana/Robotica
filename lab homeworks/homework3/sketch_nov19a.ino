@@ -62,10 +62,12 @@ int digits[noOfDisplays] = {
   pinD1, pinD2, pinD3, pinD4
  };   
 
-void displayNumber(byte digit) {
+void displayNumber(byte digit, byte decimalPoint) {
   for (int i = 0; i < segSize - 1; i++) {
   digitalWrite(segments[i], digitMatrix[digit][i]);
   }
+
+  digitalWrite(pinDP, decimalPoint);
 }
 
 // activate the display no. received as param
@@ -77,17 +79,20 @@ void showDigit(int num) {
 }
 
 void setup() {
-   for (int i = 0; i < segSize - 1; i++)
+   for (int i = 0; i < segSize -1; i++)
   {
   pinMode(segments[i], OUTPUT);  
   }
+
+  pinMode (pinDP, OUTPUT);
+  
   for (int i = 0; i < noOfDisplays; i++)
   {
   pinMode(digits[i], OUTPUT);  
   }
   Serial.begin(9600);
 
-  displayNumber(digit); // initial value displayed. Choose any value
+  displayNumber(digit, HIGH); // initial value displayed. Choose any value
 }
 
 int number = 0;
@@ -122,12 +127,13 @@ void move (){
   if (yValue >= minThreshold && yValue <= maxThreshold) {
   joyMoved2 = false;
   }
-  displayNumber(number);
+  displayNumber(number, dpState);
   delay(1);
 }
 
 
 void loop() {
+
 
   int switchValue = digitalRead(pinSW);
   if(switchValue==LOW) {
@@ -167,7 +173,7 @@ void loop() {
   if (xValue >= minThreshold && xValue <= maxThreshold) {
   joyMoved1 = false;  
   showDigit(digit); 
-  displayNumber(number);
+  displayNumber(number, dpState);
   }
   delay(1);
  }
